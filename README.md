@@ -34,11 +34,20 @@
 
 <details> 
 
+```
+select concat(sotr.first_name , ' ', sotr.last_name) as сотрудник,  c2.city as город, COUNT(c.customer_id) as "покупатели"
+from staff sotr
+join store s2 on s2.store_id = sotr.store_id 
+join customer c on c.store_id = s2.store_id
+join address a on a.address_id = s2.address_id 
+join city c2 on c2.city_id = a.city_id 
+group by sotr.staff_id, c2.city_id 
+having COUNT(c.customer_id) > 300;
+```
+
+![image](https://github.com/Ivashka80/12-03_SQL_Part_2/assets/121082757/0c2b1b20-c89e-4c55-a092-9c8e9239b66d)
 
 </details> 
-
-
-
 
 ### Задание 2
 
@@ -48,6 +57,12 @@
 
 <details> 
 
+```
+select count(film_id) as "кол-во фильмов" from film 
+where length > (select AVG(length) from film);
+```
+
+![image](https://github.com/Ivashka80/12-03_SQL_Part_2/assets/121082757/e6c346b0-5948-45cc-9b4d-03a2a1806ba1)
 
 </details> 
 
@@ -59,6 +74,15 @@
 
 <details> 
 
+```
+select month(payment_date) as месяц, SUM(p.amount) "сумма платежей", COUNT(p.rental_id) "кол-во аренд" 
+from payment p
+group by MONTH(payment_date)
+order by SUM(p.amount ) 
+desc limit 1;
+```
+
+![image](https://github.com/Ivashka80/12-03_SQL_Part_2/assets/121082757/cc591c01-c056-49ee-917e-5199505c76db)
 
 </details> 
 
